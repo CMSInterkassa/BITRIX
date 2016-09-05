@@ -1,6 +1,4 @@
-*
-* Автор www.gateon.net
-* www@smartbyte.pro
+
 * Совместим с версией ядра 1С-Битрикс 16.x
 *
 
