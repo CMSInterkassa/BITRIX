@@ -128,13 +128,13 @@ class Interkassa_Shop {
 
     public function checkIP(){
         $ip_stack = array(
-            'ip_begin'=>'151.80.190.97',
-            'ip_end'=>'151.80.190.104'
+            'ip_begin' => '151.80.190.97',
+            'ip_end' => '151.80.190.104'
         );
 
-        if(!ip2long($_SERVER['REMOTE_ADDR'])>=ip2long($ip_stack['ip_begin']) && !ip2long($_SERVER['REMOTE_ADDR'])<=ip2long($ip_stack['ip_end'])){
-            $this->wrlog('REQUEST IP'.$_SERVER['REMOTE_ADDR'].'doesnt match');
-            die('Ты мошенник! Пшел вон отсюда!');
+        if(!ip2long($_SERVER['REMOTE_ADDR']) >= ip2long($ip_stack['ip_begin']) && !ip2long($_SERVER['REMOTE_ADDR']) <= ip2long($ip_stack['ip_end'])){
+            
+            die('Fraud detected!');
         }
         return true;
     }
