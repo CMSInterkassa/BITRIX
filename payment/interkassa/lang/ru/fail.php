@@ -1,6 +1,6 @@
 <?php
 global $MESS;
-$MESS["XBILL_ERROR"] = "Îøèáêà çàêàçà";
-$MESS["XBILL_FAIL"] = "Çàêàç íå îïëà÷åí";
+$MESS["XBILL_ERROR"] = "ÐžÑˆÐ¸Ð±ÐºÐ° Ð·Ð°ÐºÐ°Ð·Ð°";
+$MESS["XBILL_FAIL"] = "Ð—Ð°ÐºÐ°Ð· Ð½Ðµ Ð¾Ð¿Ð»Ð°Ñ‡ÐµÐ½";
 
 ?>

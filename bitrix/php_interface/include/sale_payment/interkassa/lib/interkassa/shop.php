@@ -28,6 +28,13 @@ class Interkassa_Shop {
     protected $_secret_key;
 
     /**
+     * test ключ
+     *
+     * @var string
+     */
+    protected $_secret_test_key;
+
+    /**
      * метод создания
      *
      * @param array $options
@@ -62,6 +69,7 @@ class Interkassa_Shop {
 
         $this->_id = $options['id'];
         $this->_secret_key = $options['secret_key'];
+        $this->_secret_test_key = $options['test_key'];
     }
 
     /**
@@ -114,4 +122,20 @@ class Interkassa_Shop {
         return $this->_secret_key;
     }
 
+    public function getSecretTestKey(){
+        return $this->_secret_test_key;
+    }
+
+    public function checkIP(){
+        $ip_stack = array(
+            'ip_begin'=>'151.80.190.97',
+            'ip_end'=>'151.80.190.104'
+        );
+
+        if(!ip2long($_SERVER['REMOTE_ADDR'])>=ip2long($ip_stack['ip_begin']) && !ip2long($_SERVER['REMOTE_ADDR'])<=ip2long($ip_stack['ip_end'])){
+            $this->wrlog('REQUEST IP'.$_SERVER['REMOTE_ADDR'].'doesnt match');
+            die('Ты мошенник! Пшел вон отсюда!');
+        }
+        return true;
+    }
 }

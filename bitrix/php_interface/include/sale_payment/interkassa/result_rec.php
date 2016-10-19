@@ -19,14 +19,21 @@ Interkassa::register();
 
 $shop = Interkassa_Shop::factory(array(
     'id' => CSalePaySystemAction::GetParamValue("MERCHANT_ID"),
-    'secret_key' => ((CSalePaySystemAction::GetParamValue("PAYMENT_VALUE")=="test_interkassa_test_xts")?CSalePaySystemAction::GetParamValue("SECRET_TEST_KEY"):CSalePaySystemAction::GetParamValue("SECRET_KEY"))
+    'secret_key' => ((CSalePaySystemAction::GetParamValue("PAYMENT_VALUE")=="test_interkassa_test_xts")?CSalePaySystemAction::GetParamValue("SECRET_TEST_KEY"):CSalePaySystemAction::GetParamValue("SECRET_KEY")),
+    'test_key' => CSalePaySystemAction::GetParamValue("SECRET_TEST_KEY")
 ));
 
 
-if (count($_REQUEST)) {
+if (count($_REQUEST) && $shop->checkIP()) {
     if($_POST['ik_co_id']){
         $merchant_id = $shop->getId();
-        $sekret = $shop->getSecretKey();
+        if(isset($_POST['ik_pw_via']) && $_POST['ik_pw_via'] == 'test_interkassa_test_xts'){
+            $sekret = $shop->getSecretTestKey();
+        } else {
+            $sekret = $shop->getSecretKey();
+        }
+        
+        //$sekret = '0KkHktBJBrSaWzI4';
 
         $data = array();
         foreach ($_REQUEST as $key => $value) {
@@ -41,7 +48,7 @@ if (count($_REQUEST)) {
         $signString = implode(':', $data);
         $sign = base64_encode(md5($signString, true));
 
-        if ($sign === $ik_sign || $data['ik_co_id'] === $merchant_id) {
+        if ($sign === $ik_sign && $data['ik_co_id'] === $merchant_id) {
 
             $order_id = $data['ik_pm_no'];
             if (!($arOrder = CSaleOrder::GetByID(intval($order_id)))) {

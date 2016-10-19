@@ -42,7 +42,8 @@ Interkassa::register();
 
 $shop = Interkassa_Shop::factory(array(
     'id' => $ik_config['sid'],
-    'secret_key' => (($ik_config['test']==="Y")?$ik_config['test_key']:$ik_config['key'])
+    'secret_key' => (($ik_config['test']==="Y")?$ik_config['test_key']:$ik_config['key']),
+    'test_key' => $ik_config['test_key']
 ));
 
 $payment = $shop->createPayment(array(
