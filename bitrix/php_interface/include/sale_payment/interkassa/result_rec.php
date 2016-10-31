@@ -10,30 +10,23 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 define("NO_KEEP_STATISTIC", true);
 define("NOT_CHECK_PERMISSIONS", true);
+
 use Bitrix\Main\IO\Path;
 include(GetLangFileName(dirname(__FILE__) . "/", "/lang.php"));
 
-include __DIR__.'/lib/interkassa.php';
+$merchant_id = CSalePaySystemAction::GetParamValue("merchant_id");
+$secret_key = CSalePaySystemAction::GetParamValue("secur_key");
+$test_key = CSalePaySystemAction::GetParamValue("test_key");
 
-Interkassa::register();
-
-$shop = Interkassa_Shop::factory(array(
-    'id' => CSalePaySystemAction::GetParamValue("MERCHANT_ID"),
-    'secret_key' => ((CSalePaySystemAction::GetParamValue("PAYMENT_VALUE")=="test_interkassa_test_xts")?CSalePaySystemAction::GetParamValue("SECRET_TEST_KEY"):CSalePaySystemAction::GetParamValue("SECRET_KEY")),
-    'test_key' => CSalePaySystemAction::GetParamValue("SECRET_TEST_KEY")
-));
-
-
-if (count($_REQUEST) && $shop->checkIP()) {
+//proccess request
+if (count($_REQUEST) && checkIP()) {
     if($_POST['ik_co_id']){
-        $merchant_id = $shop->getId();
-        if(isset($_POST['ik_pw_via']) && $_POST['ik_pw_via'] == 'test_interkassa_test_xts'){
-            $sekret = $shop->getSecretTestKey();
-        } else {
-            $sekret = $shop->getSecretKey();
-        }
         
-        //$sekret = '0KkHktBJBrSaWzI4';
+        if(isset($_POST['ik_pw_via']) && $_POST['ik_pw_via'] == 'test_interkassa_test_xts'){
+            $sekret = $test_key;
+        } else {
+            $sekret = $secret_key;
+        }
 
         $data = array();
         foreach ($_REQUEST as $key => $value) {
@@ -90,5 +83,16 @@ if (count($_REQUEST) && $shop->checkIP()) {
             exit();
         }
     }   
+}
+function checkIP(){
+    $ip_stack = array(
+        'ip_begin'=>'151.80.190.97',
+        'ip_end'=>'151.80.190.104'
+    );
+
+    if(!ip2long($_SERVER['REMOTE_ADDR'])>=ip2long($ip_stack['ip_begin']) && !ip2long($_SERVER['REMOTE_ADDR'])<=ip2long($ip_stack['ip_end'])){
+        exit();
+    }
+    return true;
 }
 exit();

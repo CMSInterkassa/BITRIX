@@ -16,47 +16,26 @@ Loc::loadMessages(__FILE__);
 global $ik_config;
 
 $ik_config = array();
+$action = "https://sci.interkassa.com/";
+$secret_key = CSalePaySystemAction::GetParamValue("secur_key");
+$test_key = CSalePaySystemAction::GetParamValue("test_key");
+$test_mode = CSalePaySystemAction::GetParamValue("test_mode");
 
-$ik_config['sid'] = CSalePaySystemAction::GetParamValue("MERCHANT_ID");
-$ik_config['key'] = CSalePaySystemAction::GetParamValue("SECRET_KEY");
+$ik_config['ik_co_id'] = CSalePaySystemAction::GetParamValue("merchant_id");
+$ik_config['ik_pm_no'] = CSalePaySystemAction::GetParamValue("order_id");
+$ik_config['ik_am'] = number_format(CSalePaySystemAction::GetParamValue("amount"), 2, '.', '');
+$ik_config['ik_cli'] = CSalePaySystemAction::GetParamValue("email_client");
+$ik_config['ik_cur'] = CSalePaySystemAction::GetParamValue("cur");
+$ik_config['ik_desc'] = "#".$ik_config['ik_pm_no'];
 
-$ik_config['payment'] = CSalePaySystemAction::GetParamValue("PAYMENT_VALUE");
 
-$ik_config['oid'] = CSalePaySystemAction::GetParamValue("ORDER_ID");
-$ik_config['price'] = number_format(CSalePaySystemAction::GetParamValue("SHOULD_PAY"), 2, '.', '');
+ksort($ik_config, SORT_STRING);
+$ik_config['secret'] = $secret_key;
 
-$ik_config['amount_type'] = CSalePaySystemAction::GetParamValue("AMOUNT_TYPE");
+$signString = implode(':', $ik_config);
 
-$ik_config['test_key'] = CSalePaySystemAction::GetParamValue("SECRET_TEST_KEY");
-$ik_config['test'] = (($ik_config['payment']=="test_interkassa_test_xts")?"Y":"N");
-
-$ik_config['email'] = CSalePaySystemAction::GetParamValue("ORDER_EMAIL");
-
-$ik_config['cur'] = CSalePaySystemAction::GetParamValue("CURRENCY");
-
-$ik_config['desc'] = CSalePaySystemAction::GetParamValue("ORDER_DESCRIPTION");
-$ik_config['desc'] = str_replace("#ID#", $ik_config['oid'], $ik_config['desc']);
-
-include __DIR__.'/lib/interkassa.php';
-Interkassa::register();
-
-$shop = Interkassa_Shop::factory(array(
-    'id' => $ik_config['sid'],
-    'secret_key' => (($ik_config['test']==="Y")?$ik_config['test_key']:$ik_config['key']),
-    'test_key' => $ik_config['test_key']
-));
-
-$payment = $shop->createPayment(array(
-    'id' => $ik_config['oid'],
-    'amount' => $ik_config['price'],
-    'description' => "#".$ik_config['desc'],
-    'amount_type' => $ik_config['amount_type'],
-    'payment' => $ik_config['payment'],
-    'email' => $ik_config['email'],
-    'locale' => 'ru',
-    'currency' => $ik_config['cur'],
-));
-
-//$payment->setBaggage('test_baggage');
+$signature = base64_encode(md5($signString, true));
+unset($ik_config["secret"]);
+$ik_config["ik_sign"] = $signature;
 
 include(dirname(__FILE__).'/tmpl/form.php');
