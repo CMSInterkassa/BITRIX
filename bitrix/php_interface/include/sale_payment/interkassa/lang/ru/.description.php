@@ -1,35 +1,33 @@
 <?php
 global $MESS;
 
-$MESS["merchant_id"] = "РќРѕРјРµСЂ РєРѕС€РµР»СЊРєР°";
-$MESS["secur_key"] = "РЎРµРєСЂРµС‚РЅС‹Р№ РєР»СЋС‡";
-$MESS["test_key"] = "РўРµСЃС‚РѕРІС‹Р№ РєР»СЋС‡";
+$MESS["SCI_TEST_MODE"] = "Тестовый режим";
+$MESS["SCI_TEXT_YES"] = "Да";
+$MESS["SCI_TEXT_NO"] = "Нет";
 
-$MESS["test_mode"] = "РўРµСЃС‚РѕРІС‹Р№ СЂРµР¶РёРј";
+$MESS["SCI_MERCHANT_ID"] = "id Кассы";
+$MESS["SCI_SECRET_KEY"] = "Секретный ключ";
+$MESS["SCI_TEST_KEY"] = "Тестовый ключ";
 
-$MESS["test_yes"] = "Р”Р°";
-$MESS["test_no"] = "РќРµС‚";
+$MESS["SCI_API_ENABLE"] = "Включить API";
+$MESS["SCI_API_ID"] = "ID API";
+$MESS["SCI_API_KEY"] = "Ключ API";
 
-$MESS["test_mode_desc"] = 'Р РµР¶РёРј РѕС‚Р»Р°РґРєРё, РїР»Р°С‚РµР¶Рё РІ СЃРёСЃС‚РµРјРµ РЅРµ Р·Р°СЃС‡РёС‚С‹РІР°СЋС‚СЃСЏ';
+$MESS["SCI_PAGE_SUCC"] = "URL страницы при успешной оплате";
+$MESS["SCI_PAGE_FAIL"] = "URL страницы при неуспешной оплате";
 
-$MESS["order_id"] = "РќРѕРјРµСЂ Р·Р°РєР°Р·Р°";
-$MESS["amount"] = "РЎСѓРјРјР° Рє РѕРїР»Р°С‚Рµ";
-$MESS["cur"] = "Р’Р°Р»СЋС‚Р° РїР»Р°С‚РµР¶Р°";
-$MESS["module_title"] = "РРЅС‚РµСЂРєР°СЃСЃР°";
-$MESS["desc"] = "<div style='background: #c7f9a5; border-radius: 5px; border: 1px solid; border-color: #409605; color: #000; display: inline-block; margin: 16px 0; padding: 15px 30px 15px 18px;'>
-РџР»Р°С‚РµР¶РЅС‹Р№ СЃРµСЂРІРёСЃ <a href='https://interkassa.com/' target='_blank'>interkassa.com</a>
-<p>URL РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ<br/>
+$MESS["SCI_TEST_MODE_DESC"] = 'Тестовый режим, платежи в системе не засчитываются';
+
+$MESS["SCI_ORDER_ID"] = "Номер заказа";
+$MESS["SCI_AMOUNT"] = "Сумма к оплате";
+$MESS["SCI_CURRENCY"] = "Валюта платежа";
+$MESS["SCI_MODULE_TITLE"] = "Интеркасса";
+$MESS["SCI_DESC"] = "<div style='background: #c7f9a5; border-radius: 5px; border: 1px solid; border-color: #409605; color: #000; display: inline-block; margin: 16px 0; padding: 15px 30px 15px 18px;'>
+Платежный сервис <a href='https://interkassa.com/' target='_blank'>interkassa.com</a>
+<p>URL взаимодействия<br/>
 <input type='text' readonly value='#response_url#' size='90' /></p>
 
-<p>URL СѓСЃРїРµС€РЅРѕР№ РѕРїР»Р°С‚С‹<br/>
-<input type='text' readonly value='#suc_url#' size='90' /></p>
-
-<p>URL РЅРµСѓРґР°С‡РЅРѕР№ РѕРїР»Р°С‚С‹<br/>
-<input type='text' readonly value='#fail_url#' size='90' /></p>
-
-<p>Р’РЅРёРјР°РЅРёРµ: РќСѓР¶РЅРѕ РЅР°СЃС‚СЂРѕРёС‚СЊ: РњРѕРё РєР°СЃСЃС‹ -> РќР°СЃС‚СЂРѕР№РєРё -> РРЅС‚РµСЂС„РµР№СЃ -> Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕ:<br/>РўРµРєСЃС‚ СѓСЃРїРµС€РЅРѕРіРѕ РѕС‚РІРµС‚Р°: <b>OK</b><br>Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕ -> Http РєРѕРґ СѓСЃРїРµС€РЅРѕРіРѕ РѕС‚РІРµС‚Р°: <b>200</b></p>
+<p>Внимание: после создания Платежной системы сайта, ей будет присвоен <b>ID</b>(идентификатор), который надо будет ввести в значение переменной 'PAY_SYSTEM_ID_NEW' в файле расположеного по пути <b>[корень_сайта]/payment-interkassa/callback.php</b></b></p>
 </div>";
 
-$MESS["email_client"] = "Email РїРѕРєСѓРїР°С‚РµР»СЏ";
-
-
+$MESS["SCI_EMAIL_CLIENT"] = "Email покупателя";
