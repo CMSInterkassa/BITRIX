@@ -7,8 +7,6 @@ include(GetLangFileName(dirname(__FILE__) . "/", "/lang.php"));
 //proccess request
 if (count($_REQUEST) && iKcheckIP()) {
 	
-	file_put_contents(__DIR__ . '/temp.log', json_encode($_POST, JSON_PRETTY_PRINT));
-	
 	$data = $_POST;
 	
 	$order_id = intval($data['ik_pm_no']);
