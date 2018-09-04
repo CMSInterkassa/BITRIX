@@ -16,11 +16,12 @@ if(isset($_REQUEST['paysys'])){
 	$APPLICATION->RestartBuffer(); 	
 	
     $secret_key = $interkassa -> secret_key;
-    if (isset($_POST['ik_pw_via']) && $_POST['ik_pw_via'] == 'test_interkassa_test_xts')
-		$secret_key = $interkassa -> test_key;
-
-	if (isset($_POST['ik_act']) && $_POST['ik_act'] == 'process')
-		echo Interkassa::getAnswerFromAPI($_POST);
+    
+	if (isset($_POST['ik_act']) && $_POST['ik_act'] == 'process'){
+		$form = $_POST;
+        $form['ik_sign'] = self::IkSignFormation($form, $secret_key);
+		echo Interkassa::getAnswerFromAPI($form);
+	}
 	else
 		echo Interkassa::IkSignFormation($_POST, $secret_key);
 

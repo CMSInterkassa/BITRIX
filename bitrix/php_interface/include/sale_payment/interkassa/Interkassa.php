@@ -17,7 +17,6 @@ class Interkassa
 		$this -> amount = number_format(CSalePaySystemAction::GetParamValue('AMOUNT'), 2, '.', '');
 		$this -> currency = CSalePaySystemAction::GetParamValue('CURRENCY');
 		
-		//$this -> page_callback = CSalePaySystemAction::GetParamValue('PAGE_CALLBACK');// /bitrix/tools/sale_ps_result.php.
 		$this -> page_succ = CSalePaySystemAction::GetParamValue('PAGE_SUCC');
 		$this -> page_fail = CSalePaySystemAction::GetParamValue('PAGE_FAIL');
 	}   
@@ -45,7 +44,6 @@ class Interkassa
 
         if ($this -> test_mode) {
             $FormData['ik_pw_via'] = 'test_interkassa_test_xts';
-            $secret_key = $this -> test_key;
         }
 
         $FormData['ik_sign'] = self::IkSignFormation($FormData, $secret_key);
@@ -60,6 +58,7 @@ class Interkassa
         $dataSet = array();
         foreach ($data as $key => $value) {
             if (!preg_match('/ik_/', $key)) continue;
+			
             $dataSet[$key] = $value;
         }
 
