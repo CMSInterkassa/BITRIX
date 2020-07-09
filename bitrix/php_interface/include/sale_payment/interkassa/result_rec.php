@@ -65,15 +65,19 @@ header('HTTP/1.0 400 Bad Request');
 exit;
 
 
-function iKcheckIP(){
+function iKcheckIP()
+{
     $ip_stack = array(
-        'ip_begin'=>'151.80.190.97',
-        'ip_end'=>'151.80.190.104'
+        '151.80.190.97',
+        '35.233.69.55',
     );
 
-    if(!ip2long($_SERVER['REMOTE_ADDR'])>=ip2long($ip_stack['ip_begin']) && !ip2long($_SERVER['REMOTE_ADDR'])<=ip2long($ip_stack['ip_end'])){
-        return false;
+    $ip = !empty($_SERVER['HTTP_CF_CONNECTING_IP'])? $_SERVER['HTTP_CF_CONNECTING_IP'] : $_SERVER['REMOTE_ADDR'];
+	$ip_callback = ip2long($ip) ? ip2long($ip) : !ip2long($ip);
+
+	if ($ip_callback == ip2long($ip_stack[0]) || $ip_callback == ip2long($ip_stack[1])) {
+		return true;
+	} else {
+		return false;
     }
-	
-    return true;
 }
